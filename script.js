@@ -1,4 +1,4 @@
-// Our goal is to create a quiz with a start page, multiple questions (all being monitored by a timer), and then a high score page at the end where one can insert their initials 
+// Our goal is to create a quiz with a start page, multiple questions (all being monitored by a timer), and then a high score page at the end where one can insert their initials and store their answers
 
 // VARIABLES
 var timer = document.getElementById("time");
@@ -16,30 +16,25 @@ var currentQuestion;
 var questionIndex = 0;
 var score = 0;
 
-// START PAGE
-// The start page will have a section briefly explaining what the page is
-// The start page will also have a button at the bottom (similarly to the question pages)
+// EVENT LISTENERS
+    // start page
 const startBtn = document.getElementById("start-btn");
-
-// when user clicks button, the quiz/timer will both start
 startBtn.addEventListener("click", quizStart);
+    // other pages
+submitBtn.addEventListener("click", nextQuestion, checkAnswer);
+
 
 // FUNCTION for quizStart
 function quizStart() {
     console.log("started");
-    // hide p-hidden
     hiddenParagraph.style.display = "none";
-    // hide start btn
     startBtn.style.display = "none";
-    // and the question btns are shown
-    abcd.style.display = "block";
-    // for each question run show question
     showQuestion();
-    // run show choices
     showChoices();
-    // when submit is pressed, show next question/next choices
+    // *** ADD TIMER ***
 }
-  
+
+// FUNCTION for questions populating pg
 function showQuestion() {
     currentQuestion = myQuestions[questionIndex].question;
     questionsContainer.innerHTML = currentQuestion;
@@ -47,6 +42,7 @@ function showQuestion() {
     console.log(myQuestions[questionIndex].question);
 }
 
+// FUNCTION for choices populating buttons
 function showChoices() {
     btnA.innerHTML = myQuestions[questionIndex].choices.a;
     abcd.appendChild(btnA);
@@ -58,13 +54,21 @@ function showChoices() {
     abcd.appendChild(btnD);
     console.log(myQuestions[questionIndex].choices.a);
 }
-
+// *** INCOMPLETE FUNCTION for checking answer ***
+    // set correct answer (found in myQuestions) = each correlating button
+        // if correct answer = "a" then that = btnA ... and so on 
+    // addEventListener for when btnA/B/C/D is clicked
+        // when btn is clicked, checkAnswer will see if that btn corresponds with the right answer
+    // if answer is right:
+        // score++
+        // alert("CORRECT")
+    // if answer is wrong
+        // subtract 5 seconds from timer 
 function checkAnswer() {
 var rightAnswer = myQuestions[questionIndex].correctAnswer;
-
 }
 
-
+// FUNCTION for setting up subsequent questions
 function nextQuestion() {
 console.log("next question", myQuestions[questionIndex++]);
 
@@ -79,19 +83,20 @@ btnC.innerHTML = myQuestions[questionIndex].choices.c;
 abcd.appendChild(btnC);
 btnD.innerHTML = myQuestions[questionIndex].choices.d;
 abcd.appendChild(btnD);
-
 }
-// EVENT LISTENERS
-submitBtn.addEventListener("click", nextQuestion, checkAnswer);
 
+// *** INCOMPLETE FUNCTION for lastQuestion ***
+    // endQuizBtn should populate pg on last question
+        // addEventListener - when user clicks endQuizBtn, they are taken to a highscores pg
+
+// *** INCOMPLETE highscores.html ***
+    // highscore pg will show user score and will have an input box for initials
+        // when user enters their initials, they will populate pg alongside their score
+        // save scores locally at the end of the game 
     
 
 
 // QUESTIONS
-var userInput;
-
-// ALL THE WHILE - a timer will be counting down 
-// We'll make this a 10 question quiz, so we'll need to list out all of these questions with answers
 const myQuestions = [
     {
         question: "What two films have the most Academy Award nominations?",
@@ -196,21 +201,3 @@ const myQuestions = [
         correctAnswer: "d"
     }
 ]
-
-
-
-    // each answer will be formatted as a button that can be clicked on
-    // if the user input is incorrect, an alert will appear in the footer of the HTML exclaiming "WRONG!"
-    // if the user input is correct, an alert will appear in the footer of the HTML exclaiming "CORRECT!"
-    // if userInput is correct, the score will go up +1 / if not, nothing will be added
-// the quiz will be over when the timer runs out OR when the user finishes the questions 
-
-
-
-
-
-// HIGH SCORE PAGE (separate HTML pg)
-// This page will show the user's score 
-// the user will write their initials 
-    // save the score locally, so user can access their high scores in the future
-// there should be additional buttons that can take the user back to start (if they want to do it again) & for reseting the high scores 
